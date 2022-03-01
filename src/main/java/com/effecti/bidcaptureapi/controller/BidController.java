@@ -37,8 +37,6 @@ public class BidController {
 		if(bidService.find().isEmpty()) {
 			return ResponseEntity.notFound().build(); 
 		}else{
-			WebCrawler webCrawler = new WebCrawler();
-			webCrawler.getPageLinks("https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/1");
 			return ResponseEntity.status(HttpStatus.OK).body(bidService.find());
 		}
 	}

@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bid {
-    private Long id;
+    private int id;
 	private String name;
-	private LocalDateTime startDate;
+	private int Year;
+	private String Month;
+	private int Day;
 	private String link;
 }

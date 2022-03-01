@@ -19,11 +19,14 @@ public class BidService {
 	private List<Bid> bids;
 
 	public List<Bid> find() {
-		createBidList();
-		return bids;
+		WebCrawler webCrawler = new WebCrawler();
+		return webCrawler.getPageLinks("https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/2");
 	}
-
+/*
 	public void createBidList() {
+
+		
+
 		if(bids == null) {
 			bids = new ArrayList<>();
 			Bid bid1 = new Bid();
@@ -41,7 +44,7 @@ public class BidService {
 			bids.add(bid1);
 			bids.add(bid2);
 		}
-	}
+	}*/
 	/*
 
     public boolean isJSONValid(String jsonInString) {
