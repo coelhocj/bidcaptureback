@@ -1,7 +1,5 @@
 package com.effecti.bidcaptureapi.model;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class Bid {
     private int id;
 	private String name;
-	private int Year;
-	private String Month;
-	private int Day;
+	private int year;
+	private String month;
+	private int day;
 	private String link;
 }

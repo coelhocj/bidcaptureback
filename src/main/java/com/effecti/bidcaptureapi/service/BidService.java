@@ -1,103 +1,31 @@
 package com.effecti.bidcaptureapi.service;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import com.effecti.bidcaptureapi.model.Bid;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class BidService {
 
-	private List<Bid> bids;
+	private List<String> urls = new ArrayList<String>();
+
+	private WebCrawler webCrawler = new WebCrawler();
+
+	private int numberOfPages = 2;
 
 	public List<Bid> find() {
-		WebCrawler webCrawler = new WebCrawler();
-		return webCrawler.getPageLinks("https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/2");
-	}
-/*
-	public void createBidList() {
-
-		
-
-		if(bids == null) {
-			bids = new ArrayList<>();
-			Bid bid1 = new Bid();
-			bid1.setName("bid1");
-			bid1.setId(0l);
-			bid1.setStartDate(LocalDateTime.of(2022,02,04,18,48));
-			bid1.setLink("link teste");
-
-			Bid bid2 = new Bid();
-			bid2.setName("bid2");
-			bid2.setId(1l);
-			bid2.setStartDate(LocalDateTime.of(2022,02,04,18,58));
-			bid2.setLink("link teste2");
-
-			bids.add(bid1);
-			bids.add(bid2);
+		if (urls.size() == 0) {
+			createURLList();
 		}
-	}*/
-	/*
-
-    public boolean isJSONValid(String jsonInString) {
-	    try {
-	       return new ObjectMapper().readTree(jsonInString) != null;
-	    } catch (IOException e) {
-	       return false;
-	    }
+		return webCrawler.getPageData(urls);
 	}
 
-	
-
-    private long parseId(JSONObject bid) {
-		return Long.valueOf((int) bid.get("id"));
+	public void createURLList() {
+		for (int i = 1; i <= numberOfPages; i++) {
+			urls.add(
+					"https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/"
+							+ i);
+		}
 	}
-
-    private void setBidValues(JSONObject jsonBid, Bid bid) {
-		
-		String name = (String) jsonBid.get("name");
-		
-        bid.setName(name);
-	}
-
-	public Bid create(JSONObject jsonBid) {
-		
-		Bid bid = new Bid();
-		bid.setName(jsonBid.get("name").toString());
-		
-		return bid;
-	}
-
-	public Bid update(Bid bid, JSONObject jsonBid) {
-		
-		setBidValues(jsonBid, bid);
-		return bid;
-	}
-	
-	public void add(Bid bid) {
-		createBidList();
-		bids.add(bid);
-	}
-
-	
-
-	public Bid findById(long id) {
-		return bids.stream().filter(t -> id == t.getId()).collect(Collectors.toList()).get(0);
-	}
-
-	public void delete() {
-		bids.clear();
-	}
-
-	public void clearObjects() {
-		bids = null;
-	}*/
 }
