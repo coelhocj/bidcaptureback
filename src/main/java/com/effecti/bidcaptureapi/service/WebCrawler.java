@@ -69,11 +69,11 @@ public class WebCrawler {
                 System.err.println("For '" + url + "': " + e.getMessage());
                 Bid bidTeste = new Bid();
                 bidTeste.setName("Pregão teste");
-                bidTeste.setLink("www.google.com");
-                bidTeste.setDay(7);
+                bidTeste.setLink("https://www.google.com/");
+                bidTeste.setDay(1);
                 bidTeste.setMonth("jan");
-                bidTeste.setYear(2022);
-                bidTeste.setId(5);
+                bidTeste.setYear(2000);
+                bidTeste.setId(0);
                 addNewBid(bidTeste);
                 return this.bids;
             }
