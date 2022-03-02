@@ -26,6 +26,16 @@ public class WebCrawler {
         return false;
     }
 
+    private boolean addNewBid(Bid bidToAdd){
+        for (Bid bid : bids) {
+            if(bid.getId()==bidToAdd.getId()){
+                return false;
+            }
+        }
+        bids.add(bidToAdd);
+        return true;
+    }
+
     public List<Bid> getPageData(List<String> URLs) {
 
         for (String url : URLs) {
@@ -50,7 +60,7 @@ public class WebCrawler {
                         bid.setYear(Integer.parseInt(data.selectFirst("span.ano").text()));
                         bid.setMonth(data.selectFirst("span.mes").text());
                         bid.setDay(Integer.parseInt(data.selectFirst("span.dia").text()));
-                        bids.add(bid);
+                        addNewBid(bid);
                     }
 
                 }
@@ -64,7 +74,7 @@ public class WebCrawler {
                 bidTeste.setMonth("jan");
                 bidTeste.setYear(2022);
                 bidTeste.setId(5);
-                bids.add(bidTeste);
+                addNewBid(bidTeste);
                 return this.bids;
             }
 
