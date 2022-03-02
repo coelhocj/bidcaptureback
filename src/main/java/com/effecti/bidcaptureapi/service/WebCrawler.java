@@ -57,7 +57,15 @@ public class WebCrawler {
                 visitedUrls.add(url);
             } catch (IOException e) {
                 System.err.println("For '" + url + "': " + e.getMessage());
-                return null;
+                Bid bidTeste = new Bid();
+                bidTeste.setName("Pregão teste");
+                bidTeste.setLink("www.google.com");
+                bidTeste.setDay(7);
+                bidTeste.setMonth("jan");
+                bidTeste.setYear(2022);
+                bidTeste.setId(5);
+                bids.add(bidTeste);
+                return this.bids;
             }
 
         }
