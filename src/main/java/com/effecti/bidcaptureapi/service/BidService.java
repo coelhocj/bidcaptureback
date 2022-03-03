@@ -12,7 +12,7 @@ public class BidService {
 
 	private WebCrawler webCrawler = new WebCrawler();
 
-	private int numberOfPages = 2;
+	private int numberOfPages = 121;
 
 	public List<Bid> find() {
 		if (urls.size() == 0) {
