@@ -12,17 +12,15 @@ public class BidService {
 
 	private WebCrawler webCrawler = new WebCrawler();
 
-	private int numberOfPages = 121;
-
-	public List<Bid> find() {
+	public List<Bid> find(String pageFrom, String pageTo) throws Exception {
 		if (urls.size() == 0) {
-			createURLList();
+			createURLList(pageFrom, pageTo);
 		}
 		return webCrawler.getPageData(urls);
 	}
 
-	public void createURLList() {
-		for (int i = 1; i <= numberOfPages; i++) {
+	public void createURLList(String pageFrom, String pageTo) {
+		for (int i = Integer.parseInt(pageFrom); i <= Integer.parseInt(pageTo); i++) {
 			urls.add(
 					"https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/"
 							+ i);

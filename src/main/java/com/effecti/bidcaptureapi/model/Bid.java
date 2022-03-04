@@ -1,5 +1,7 @@
 package com.effecti.bidcaptureapi.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,8 @@ public class Bid {
 	private String month;
 	private int day;
 	private String link;
+	private String description;
+	private String status;
+	private List<Doc> docs;
+	private List<String> history;
 }

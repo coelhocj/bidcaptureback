@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.effecti.bidcaptureapi.model.Bid;
+import com.effecti.bidcaptureapi.model.Doc;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,7 +37,43 @@ public class WebCrawler {
         return true;
     }
 
-    public List<Bid> getPageData(List<String> URLs) {
+    private void completeBidFullData() throws Exception{
+        for (Bid bid : this.bids) {
+            try {
+                Document document = Jsoup.connect(bid.getLink()).get();
+                Element details = document.selectFirst("div.licitacoes");
+                bid.setStatus(details.selectFirst("div[class^=status]").text());
+                bid.setDescription(details.selectFirst("dd[class=objeto]").text());
+
+                Element docs = details.selectFirst("div.docs");
+                Elements itens = docs.select("li");
+                List<Doc> docsList = new ArrayList<>();
+                for (Element item : itens) {
+                    Doc doc = new Doc();
+                    doc.setDate(item.selectFirst("strong.data-docs").text());
+                    Element link = item.selectFirst("a");
+                    doc.setTitle(link.text());
+                    doc.setLink("https://www.bombinhas.sc.gov.br"+link.attr("href"));
+                    docsList.add(doc);
+                }
+                bid.setDocs(docsList);
+                
+                Element history = details.selectFirst("div[class=docs historico]");
+                Elements historyItens = history.select("li");
+
+                List<String> historyList = new ArrayList<>();
+                for (Element historyItem : historyItens) {
+                    historyList.add(historyItem.selectFirst("p").text());
+                }
+                bid.setHistory(historyList);
+            } catch (IOException e) {
+                throw new Exception("Error");
+            }
+
+        }
+    }
+
+    public List<Bid> getPageData(List<String> URLs) throws Exception {
 
         for (String url : URLs) {
             if(checkIfUrlIsVisited(url)){
@@ -66,10 +103,11 @@ public class WebCrawler {
                 }
                 visitedUrls.add(url);
             } catch (IOException e) {
-                return this.bids;
+                throw new Exception("Error");
             }
 
         }
+        completeBidFullData();
         return this.bids;
     }
 }
