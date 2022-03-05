@@ -18,6 +18,7 @@ public class BidService {
 	}
 
 	public void createURLList(String pageFrom, String pageTo) {
+		urls.clear();
 		for (int i = Integer.parseInt(pageFrom); i <= Integer.parseInt(pageTo); i++) {
 			urls.add(
 					"https://www.bombinhas.sc.gov.br/licitacoes/index/rotear/actionDestino/listar/codMapaItem/11152/pagina/"

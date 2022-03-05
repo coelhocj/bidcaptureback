@@ -63,7 +63,7 @@ public class WebCrawler {
     }
 
     public List<Bid> getPageData(List<String> URLs) throws Exception {
-
+        bids.clear();
         for (String url : URLs) {
             try {
                 Document doc = Jsoup.connect(url).get();
