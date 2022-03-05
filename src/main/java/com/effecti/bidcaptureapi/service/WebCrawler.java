@@ -16,17 +16,6 @@ public class WebCrawler {
 
     private List<Bid> bids = new ArrayList<>();
 
-    private List<String> visitedUrls = new ArrayList<>();
-
-    private boolean checkIfUrlIsVisited(String url){
-        for (String urlToVisit : this.visitedUrls) {
-            if(urlToVisit == url){
-                return true;
-            }
-        }
-        return false;
-    }
-
     private boolean addNewBid(Bid bidToAdd){
         for (Bid bid : bids) {
             if(bid.getId()==bidToAdd.getId()){
@@ -76,9 +65,6 @@ public class WebCrawler {
     public List<Bid> getPageData(List<String> URLs) throws Exception {
 
         for (String url : URLs) {
-            if(checkIfUrlIsVisited(url)){
-                break;
-            }
             try {
                 Document doc = Jsoup.connect(url).get();
 
@@ -101,7 +87,6 @@ public class WebCrawler {
                     }
 
                 }
-                visitedUrls.add(url);
             } catch (IOException e) {
                 throw new Exception("Error");
             }
