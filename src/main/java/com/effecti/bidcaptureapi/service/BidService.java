@@ -13,9 +13,7 @@ public class BidService {
 	private WebCrawler webCrawler = new WebCrawler();
 
 	public List<Bid> find(String pageFrom, String pageTo) throws Exception {
-		if (urls.size() == 0) {
-			createURLList(pageFrom, pageTo);
-		}
+		createURLList(pageFrom, pageTo);
 		return webCrawler.getPageData(urls);
 	}
 
