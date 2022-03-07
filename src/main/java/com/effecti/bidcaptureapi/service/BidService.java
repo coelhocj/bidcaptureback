@@ -17,7 +17,7 @@ public class BidService {
 		return webCrawler.getPageData(urls);
 	}
 
-	public void createURLList(String pageFrom, String pageTo) {
+	private void createURLList(String pageFrom, String pageTo) {
 		urls.clear();
 		for (int i = Integer.parseInt(pageFrom); i <= Integer.parseInt(pageTo); i++) {
 			urls.add(
